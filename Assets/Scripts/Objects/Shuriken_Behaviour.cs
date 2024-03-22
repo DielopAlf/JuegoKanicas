@@ -58,6 +58,10 @@ public class Shuriken_Behaviour : MonoBehaviour
 
         //Accionar interruptores:
         //hecho en palanca behaviour.
+       if (collision.gameObject.tag == "Interruptor")
+       {
+            Destroy(this.gameObject);
+       }
     }
     IEnumerator EnemyDeath()
     {

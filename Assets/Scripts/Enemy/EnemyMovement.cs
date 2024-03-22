@@ -10,7 +10,7 @@ public class EnemyMovement : MonoBehaviour
     public float rotationDirection;
 
     private void Start()
-    { 
+    {
         if (transform.position != points[current])
         {
             transform.position = points[current];

@@ -20,11 +20,11 @@ public class UnlockObjects : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            //Debug.Log("Has recogido " + howMany + " " + objects[wichObject]);
             Destroy(this.gameObject);
             gameObject.GetComponent<SphereCollider>().enabled = false;
             gameObject.GetComponent<MeshRenderer>().enabled = false;
             PlayerPrefs.SetInt("howMany", howMany);
+            Debug.Log("Has recogido " + PlayerPrefs.GetInt("howMany") + " " + objects[wichObject]);
         }
     }
 }

@@ -18,6 +18,9 @@ public class ShurikenLaunch_Behaviour : MonoBehaviour
     [SerializeField]
     GameObject shurikenSkin;
 
+    [SerializeField]
+    GameObject player;
+
     //SelectShurikenMode:
     #region
     /*public void SelectShurikenMode()
@@ -36,26 +39,22 @@ public class ShurikenLaunch_Behaviour : MonoBehaviour
     }
     private void Update()
     {
-        //if (shurikenModeON == false)
-        //{
-            //Activar Shuriken mode:
-            if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
+        {
+            //Activara shuriken mode:
+            if (shurikenModeON == false)
             {
                 if (PlayerPrefs.GetInt("howMany") >= 1/*(Shuriken)*/)
                 {
-                    gameObject.GetComponent<PlayerMovement_Custom>().enabled = false;
+                    player.GetComponent<PlayerMovement_Custom>().enabled = false;
                     shurikenSkin.SetActive(true);
                     shurikenModeON = true;
                 }
             }
-        //}
-
-        if (shurikenModeON == true)
-        {
             //Desactivar shuriken mode:
-            if (Input.GetMouseButtonDown(1))
+            else if (shurikenModeON == true)
             {
-                gameObject.GetComponent<PlayerMovement_Custom>().enabled = true;
+                player.GetComponent<PlayerMovement_Custom>().enabled = true;
                 shurikenSkin.SetActive(false);
                 shurikenModeON = false;
             }
@@ -83,7 +82,7 @@ public class ShurikenLaunch_Behaviour : MonoBehaviour
 
             //Desactivar modo después de lanzar:
             shurikenSkin.SetActive(false);
-            gameObject.GetComponent<PlayerMovement_Custom>().enabled = true;
+            player.GetComponent<PlayerMovement_Custom>().enabled = true;
             shurikenModeON = false;
         }
     }

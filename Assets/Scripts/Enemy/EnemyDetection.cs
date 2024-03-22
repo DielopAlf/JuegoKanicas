@@ -5,21 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class EnemyDetection : MonoBehaviour
 {
-    [SerializeField]
-    GameObject canvas;
+    /*[SerializeField]
+    GameObject canvas;*/
 
     private GameObject player;
 
     [SerializeField]
-    GameObject ememy;
+    GameObject ememy, alert, smoke;
 
     public int walls;
+
+    Vector3 lastPos;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
             player = other.gameObject;
+            lastPos = other.transform.position;
             RaycastHit hit;
             if (Physics.Raycast(ememy.transform.position + (Vector3.down * 0.3f), (player.transform.position + (Vector3.down * 0.3f) - ememy.transform.position + (Vector3.down * 0.3f)), out hit, Vector3.Distance(player.transform.position, ememy.transform.position), Physics.AllLayers))
             {
@@ -32,11 +35,16 @@ public class EnemyDetection : MonoBehaviour
     }
     IEnumerator DeathConsecuences()
     {
+        Instantiate(smoke, player.transform.position, Quaternion.identity);
+        alert.SetActive(true);
         Destroy(player.GetComponent<MeshRenderer>());
         player.GetComponent<SphereCollider>().enabled = false;
+        player.GetComponent<PlayerMovement_Custom>().enabled = false;
         player.GetComponent<Rigidbody>().Sleep();
-        canvas.SetActive(false);
+        player.transform.position = lastPos;
+        //canvas.SetActive(false);
         yield return new WaitForSeconds(2);
+        player.transform.position = lastPos;
         Debug.Log(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Win_Manager : MonoBehaviour
 {
     [SerializeField]
-    GameObject canvas;
+    GameObject player;
     float currentLVL;
     string[] split;
     string nombre;
@@ -14,25 +14,22 @@ public class Win_Manager : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            canvas.SetActive(false);
             StartCoroutine(NextLVL());
         }
     }
     IEnumerator NextLVL()
     {
+        Destroy(player.GetComponent<MeshRenderer>());
+        player.GetComponent<SphereCollider>().enabled = false;
+        player.GetComponent<PlayerMovement_Custom>().enabled = false;
+        player.GetComponent<Rigidbody>().Sleep();
         //Wich one is the current LVL:
         yield return new WaitForSeconds(2);
-        //Debug.Log(SceneManager.GetActiveScene().name);
+        
         nombre = SceneManager.GetActiveScene().name;
-        //Debug.Log(SceneManager.GetActiveScene().name);
         split = nombre.Split('-');
-        //Debug.Log(split.Length);
         currentLVL = float.Parse(split[1]);
         Debug.Log(currentLVL);
-        /*for (int i = 0; i < split.Length; i++)
-        {
-            Debug.Log("Split " + split[i]);
-        }*/
 
 
         //Load next LVL:

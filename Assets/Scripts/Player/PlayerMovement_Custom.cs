@@ -59,7 +59,7 @@ public class PlayerMovement_Custom : MonoBehaviour
         isShoot = true;
     }
 
-    private float forceMultiplier = 10000;
+    public float forceMultiplier = 10000;
     void Shoot(Vector3 Force)
     {
         if (this.isActiveAndEnabled)
